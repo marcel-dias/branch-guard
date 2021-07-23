@@ -24845,7 +24845,7 @@ function run() {
     });
 }
 function _runImpl() {
-    var _a, _b, _c, _d, _e, _f, _g, _h;
+    var _a, _b, _c, _d, _e, _f;
     return main_awaiter(this, void 0, void 0, function* () {
         let GITHUB_REPOSITORY = getRequiredEnvironmentVariable('GITHUB_REPOSITORY');
         let [owner, name] = GITHUB_REPOSITORY.split('/');
@@ -24863,9 +24863,9 @@ function _runImpl() {
         }
         else if (github.context.eventName == "repository_dispatch") {
             let GITHUB_SHA = getRequiredEnvironmentVariable('GITHUB_SHA');
-            core.info(`Checking branch  ${(_g = github.context.payload.repository_dispatch) === null || _g === void 0 ? void 0 : _g.branch}`);
+            core.info(`Checking branch  ${github.context.payload.branch}`);
             core.info(`Checking GITHUB_SHA : ${GITHUB_SHA}`);
-            yield checkReferenceAndSetForSHA(owner, name, `refs/heads/${(_h = github.context.payload.repository_dispatch) === null || _h === void 0 ? void 0 : _h.branch}`, GITHUB_SHA);
+            yield checkReferenceAndSetForSHA(owner, name, `refs/heads/${github.context.payload.branch}`, GITHUB_SHA);
         }
         else {
             core.warning(`Don't know how to process '${github.context.eventName}' event!`);
