@@ -29,9 +29,9 @@ async function _runImpl(): Promise<void> {
     await checkReference(owner, name, `refs/heads/${context.payload.check_suite?.head_branch}`);
   } else if (context.eventName == "repository_dispatch") {
     let GITHUB_SHA = getRequiredEnvironmentVariable('GITHUB_SHA');
-    core.info(`Checking branch  ${context.payload.repository_dispatch?.branch}`);
+    core.info(`Checking branch  ${context.payload.branch}`);
     core.info(`Checking GITHUB_SHA : ${GITHUB_SHA}`);
-    await checkReferenceAndSetForSHA(owner, name, `refs/heads/${context.payload.repository_dispatch?.branch}`, GITHUB_SHA);
+    await checkReferenceAndSetForSHA(owner, name, `refs/heads/${context.payload.branch}`, GITHUB_SHA);
   } else {
     core.warning(`Don't know how to process '${context.eventName}' event!`);
   }

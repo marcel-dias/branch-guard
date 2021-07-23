@@ -63,7 +63,7 @@ export async function findAffectedPRs(repositoryOwner: string, repositoryName: s
     base: branch,
     page: page
   });
-  return pullsResponse.data.map(pr => {
+  return pullsResponse.data.map((pr: { number: any; head: { sha: any; }; }) => {
     return {
       number: pr.number,
       sha: pr.head.sha
@@ -120,7 +120,7 @@ export async function overallRefConclusion(repositoryOwner: string, repositoryNa
   for (const checkSuite of checksResponse.data.check_suites) {
     core.info(`Check suite ${checkSuite.id}: ${checkSuite.app.name} ${checkSuite.status} ${checkSuite.conclusion}`)
   }
-  let checkSuites = checksResponse.data.check_suites.filter(checkSuite => appsToCheck.length === 0 || appsToCheck.includes(checkSuite.app.name));
+  let checkSuites = checksResponse.data.check_suites.filter((checkSuite: { app: { name: string; }; }) => appsToCheck.length === 0 || appsToCheck.includes(checkSuite.app.name));
   core.info(`Processing ${checkSuites.length} check suites after filtering by 'appsToCheck'.`);
   // first check if there is any suite that completed but not in a successful state to report it ASAP
   for (const checkSuite of checkSuites) {
